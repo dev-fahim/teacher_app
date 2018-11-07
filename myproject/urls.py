@@ -20,22 +20,19 @@ from django.conf.urls.static import static
 from test_api.api.views import TestAPIView, TestAPIUpdateView, UserDetailsAPIView
 from rest_framework_swagger.views import get_swagger_view
 
-from . import views
-
 schema_view = get_swagger_view(title='App API')
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('app/', views.index),
     path('test/', TestAPIView.as_view()),
     path('test/<int:pk>/', TestAPIUpdateView.as_view()),
-    path('app/login/', views.index),
     path('api/accounts/', include('rest_auth.urls')),
     path('api/accounts/register/', include('rest_auth.registration.urls')),
     re_path(r'^$', schema_view),
     path('user/', UserDetailsAPIView.as_view()),
     path('accounts/', include('rest_framework.urls', namespace='rest_framework')),
+    path('app/', include('owners.api.urls'))
 ] + static(
     settings.STATIC_URL,
     document_root=settings.STATICS_DIRS) \

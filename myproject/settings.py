@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'rest_auth.registration',
     'test_api',
     'rest_framework_swagger',
+    'owners',
 ]
 
 SITE_ID = 1
