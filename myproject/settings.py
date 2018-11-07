@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-
 import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -53,6 +52,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'rest_auth.registration',
+    'test_api',
+    'rest_framework_swagger',
 ]
 
 SITE_ID = 1
