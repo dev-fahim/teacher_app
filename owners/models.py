@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.db.models.signals import post_save
 
 # Create your models here.
 
@@ -13,9 +14,9 @@ class OwnerModel(models.Model):
     Personal information
     """
     owner_name = models.OneToOneField(to=User, on_delete=models.CASCADE, related_name='owner')
-    owner_birth_date = models.DateField(blank=True)
-    owner_ps_address = models.TextField(blank=False)
-    owner_pm_address = models.TextField(blank=False)
+    owner_birth_date = models.DateField(blank=True, null=True)
+    owner_ps_address = models.TextField(blank=False, default='N/A')
+    owner_pm_address = models.TextField(blank=False, default='N/A')
 
     """
     Owner's status
@@ -31,7 +32,7 @@ class OwnerModel(models.Model):
     Important methods
     """
     def __str__(self):
-        return self.owner_name
+        return self.owner_name.username
 
     def is_active(self):
         return self.owner_is_active
@@ -63,7 +64,7 @@ class OwnerStoreModel(models.Model):
     Owner's store information
     """
     owner_store_name = models.CharField(max_length=100, blank=False)
-    owner_store_lcs_type = models.CharField(max_length=45, blank=False)
+    owner_store_lcs_type = models.CharField(max_length=45, blank=False, default='N/A')
     owner_store_address = models.TextField(blank=False)
     owner_store_type = models.CharField(choices=CHOICES_STORE_TYPE, blank=False, default=CHOICES_STORE_TYPE[0][0],
                                         max_length=40)
@@ -95,3 +96,17 @@ class OwnerStoreModel(models.Model):
 
     class Meta:
         verbose_name = 'Store'
+
+
+"""All signals"""
+
+
+def user_register_post_save_owner(sender, instance, created, *args, **kwargs):
+    if created:
+        OwnerModel.objects.create(owner_name=instance)
+        instance.save()
+
+
+post_save.connect(user_register_post_save_owner, sender=User)
+
+"""-------------------"""
