@@ -23,10 +23,12 @@ class OwnerModelSerializer(serializers.ModelSerializer):
 
 class OwnerStoreModelSerializer(serializers.ModelSerializer):
     owner = serializers.SerializerMethodField()
+    urls = serializers.HyperlinkedIdentityField(view_name='api_owner:store_detail_api_view', lookup_field='id')
 
     class Meta:
         model = OwnerStoreModel
         fields = (
+            'id', 'urls',
             'owner', 'owner_store_address',
             'owner_store_name',
             'owner_store_type', 'owner_store_added',
@@ -36,4 +38,3 @@ class OwnerStoreModelSerializer(serializers.ModelSerializer):
     @staticmethod
     def get_owner(obj):
         return obj.get_owner_name
-
