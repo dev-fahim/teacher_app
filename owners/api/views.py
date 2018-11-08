@@ -1,7 +1,6 @@
 from rest_framework import generics
 from rest_framework import permissions
 from rest_framework.response import Response
-from rest_framework.request import Request
 from rest_framework.views import APIView
 from .serializers import *
 
@@ -56,7 +55,7 @@ class OwnerStoreAPIView(generics.ListCreateAPIView):
         return serializer.save(owner_store=self.request.user.owner)
 
 
-class OwnerStoreDetailAPIView(generics.RetrieveUpdateAPIView):
+class OwnerStoreDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = OwnerStoreModelSerializer
     permission_classes = [permissions.IsAuthenticated, ]
     lookup_field = 'id'
