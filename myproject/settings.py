@@ -32,7 +32,7 @@ SECRET_KEY = 'j6=3fxz==)#r5$!xh=ce0(hza^ww1_af)o9i@ndrzzl+^w+(yn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['devfahim.pythonanywhere.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['fahim6668.pythonanywhere.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
