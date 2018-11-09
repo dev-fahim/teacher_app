@@ -98,6 +98,26 @@ class OwnerStoreModel(models.Model):
         verbose_name = 'Store'
 
 
+class StoreProductModel(models.Model):
+
+    """
+    Product information
+    """
+    product_store = models.ForeignKey(OwnerStoreModel, on_delete=models.CASCADE, related_name='store_product')
+    product_name = models.CharField(max_length=255)
+    product_id = models.CharField(max_length=255, unique=True)
+
+    """
+    Product prices
+    """
+    product_price = models.IntegerField()
+    product_main_price = models.IntegerField()
+
+    """
+    Product Status
+    """
+
+
 """All signals"""
 
 
@@ -108,5 +128,6 @@ def user_register_post_save_owner(sender, instance, created, *args, **kwargs):
 
 
 post_save.connect(user_register_post_save_owner, sender=User)
+
 
 """-------------------"""

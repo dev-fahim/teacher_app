@@ -197,5 +197,4 @@ CORS_ORIGIN_WHITELIST = (
     'https://angular-4bflgb.stackblitz.io',
 )
 
-CORS_URLS_REGEX = r'^/api/.*$'
 

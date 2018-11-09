@@ -1,44 +1,29 @@
 from rest_framework import generics
 from rest_framework import permissions
-from rest_framework.response import Response
-from rest_framework.views import APIView
 from .serializers import *
 
 
-class AllInformationListView(APIView):
+class AllInformationListView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated, ]
-
-    def get_object(self):
-        return self.request.user.owner
 
     def get_queryset(self):
         return self.get_object()
 
-    def get(self, request, *args, **kwargs):
-        owner = self.get_queryset()
-        stores = self.get_queryset().store
-        owner_serializer = OwnerModelSerializer(owner)
-        stores_serializer = OwnerStoreModelSerializer(stores, many=True, context={'request': request})
-        stores = stores_serializer.data
-        if len(stores) is 0:
-            stores = 'No stores are associated with you.'
-        content = [
-            {
-                'owner': {
-                    'info': owner_serializer.data,
-                    'stores': stores
-                }
-            }
-        ]
-        return Response(data=content)
+    def get_object(self):
+        return self.request.user
+
+    def get_serializer(self, *args, **kwargs):
+        return CoreUserSerializer(self.get_queryset(), context={'request': self.request})
 
 
 class OwnerAPIView(generics.RetrieveUpdateAPIView):
-    serializer_class = OwnerModelSerializer
     permission_classes = [permissions.IsAuthenticated, ]
 
     def get_object(self):
         return self.request.user.owner
+
+    def get_serializer(self, *args, **kwargs):
+        return OwnerModelSerializer(instance=self.get_object(), context={'request': self.request})
 
 
 class OwnerStoreAPIView(generics.ListCreateAPIView):
