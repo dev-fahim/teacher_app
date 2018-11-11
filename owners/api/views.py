@@ -1,6 +1,8 @@
-from rest_framework import generics
+from rest_framework import generics, views, response
 from rest_framework import permissions
 from .serializers import *
+from django.shortcuts import get_list_or_404, get_object_or_404
+from ..models import *
 
 
 class AllInformationListView(generics.ListAPIView):
@@ -41,12 +43,50 @@ class OwnerStoreAPIView(generics.ListCreateAPIView):
 
 
 class OwnerStoreDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = OwnerStoreModelSerializer
     permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = OwnerStoreModelSerializer
     lookup_field = 'id'
 
     def get_queryset(self):
         return self.request.user.owner.store
 
 
+class StoreProductCreateAPIView(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = StoreProductModelSerializer
+
+    def get_object(self):
+        return self.request.user.owner
+
+    def get_queryset(self, *args, **kwargs):
+        obj = self.get_object().store
+        obj = get_object_or_404(obj, id=self.request.GET.get('list'))
+        return StoreProductModel.objects.filter(product_store=obj)
+
+    def perform_create(self, serializer):
+        obj = self.get_object().store
+        obj = get_object_or_404(obj, id=self.request.GET.get('list'))
+        obj = serializer.save(product_store=obj, store_product_owner=self.request.user.owner)
+        ProductStatusModel.objects.filter(product_origin=obj).update(product_owner=self.request.user.owner)
+
+
+class StoreProductUpdateAPIView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = OwnerStoreProductModelSerializer
+    lookup_field = 'id'
+
+    def get_queryset(self):
+        return StoreProductModel.objects.filter(store_product_owner=self.request.user.owner)
+
+
+class StoreProductStatusUpdateAPIView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = ProductStatusModelSerializer
+    lookup_field = 'id'
+
+    def get_queryset(self):
+        return ProductStatusModel.objects.filter(product_owner=self.request.user.owner)
+
+    def perform_update(self, serializer):
+        serializer.save(product_owner=self.request.user.owner)
 

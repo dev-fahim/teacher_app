@@ -103,7 +103,8 @@ class StoreProductModel(models.Model):
     """
     Product information
     """
-    product_store = models.ForeignKey(OwnerStoreModel, on_delete=models.CASCADE, related_name='store_product')
+    product_store = models.ForeignKey(to=OwnerStoreModel, on_delete=models.CASCADE, related_name='products')
+    store_product_owner = models.ForeignKey(OwnerModel, on_delete=models.CASCADE, related_name='owner_product', null=True)
     product_name = models.CharField(max_length=255)
     product_id = models.CharField(max_length=255, unique=True)
 
@@ -113,9 +114,64 @@ class StoreProductModel(models.Model):
     product_price = models.IntegerField()
     product_main_price = models.IntegerField()
 
+    def __str__(self):
+        return self.product_name
+
+    @property
+    def get_store_name(self):
+        return str(self.product_store.owner_store_name)
+
+
+class ProductStatusModel(models.Model):
+
     """
-    Product Status
+    Product
     """
+    product_origin = models.OneToOneField(StoreProductModel, on_delete=models.CASCADE, related_name='product')
+    product_owner = models.ForeignKey(OwnerModel, on_delete=models.CASCADE, related_name='owner_product_status', null=True)
+
+    """
+    Product status
+    """
+    product_is_in_store = models.BooleanField(default=False)
+    product_is_for_sale = models.BooleanField(default=False)
+    product_quantity = models.IntegerField(default=0)
+
+    """
+    Important methods and properties
+    """
+
+    def is_is_store(self):
+        return self.product_is_in_store
+
+    def is_for_sale(self):
+        return self.product_is_for_sale
+
+    def qty_in_store(self):
+        return self.product_quantity
+
+    @property
+    def get_name(self):
+        return str(self.product_origin.product_name)
+
+    @property
+    def get_store(self):
+        return str(self.product_origin.product_store)
+
+    @property
+    def get_price(self):
+        return str(self.product_origin.product_price)
+
+    @property
+    def get_main_price(self):
+        return str(self.product_origin.product_main_price)
+
+    @property
+    def get_pid(self):
+        return str(self.product_origin.product_id)
+
+    def __str__(self):
+        return self.product_origin.product_name
 
 
 """All signals"""
@@ -124,10 +180,15 @@ class StoreProductModel(models.Model):
 def user_register_post_save_owner(sender, instance, created, *args, **kwargs):
     if created:
         OwnerModel.objects.create(owner_name=instance)
-        instance.save()
+
+
+def store_product_on_add_post_save_product(sender, instance, created, *args, **kwargs):
+    if created:
+        ProductStatusModel.objects.create(product_origin=instance)
 
 
 post_save.connect(user_register_post_save_owner, sender=User)
+post_save.connect(store_product_on_add_post_save_product, sender=StoreProductModel)
 
 
 """-------------------"""
