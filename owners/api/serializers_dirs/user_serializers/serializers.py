@@ -12,3 +12,4 @@ class CoreUserSerializer(serializers.ModelSerializer):
             'username', 'first_name', 'last_name', 'owner'
         )
         read_only_fields = ('username', 'owner')
+

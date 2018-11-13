@@ -9,11 +9,7 @@ class OwnerModelSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OwnerModel
-        fields = (
-            'id', 'owner_name', 'owner_birth_date',
-            'owner_ps_address', 'owner_pm_address',
-            'owner_joined', 'store'
-        )
+        fields = '__all__'
         read_only_fields = (
             'id', 'owner_name', 'owner_joined'
         )

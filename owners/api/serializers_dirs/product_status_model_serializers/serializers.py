@@ -12,5 +12,5 @@ class ProductStatusModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductStatusModel
         fields = '__all__'
-        read_only_fields = ('product_owner', 'product_origin')
+        read_only_fields = ('object_owner', 'product_origin')
 

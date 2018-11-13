@@ -1,7 +1,8 @@
-from rest_framework import generics, views, response
+from rest_framework import generics
 from rest_framework import permissions
+from rest_framework import exceptions
 from .serializers import *
-from django.shortcuts import get_list_or_404, get_object_or_404
+from django.shortcuts import get_object_or_404
 from ..models import *
 
 
@@ -60,14 +61,22 @@ class StoreProductCreateAPIView(generics.ListCreateAPIView):
 
     def get_queryset(self, *args, **kwargs):
         obj = self.get_object().store
-        obj = get_object_or_404(obj, id=self.request.GET.get('list'))
-        return StoreProductModel.objects.filter(product_store=obj)
+        list_value = self.request.query_params.get('list', None)
+        if list_value is not None and isinstance(list_value, str) and list_value.isdigit():
+            obj = get_object_or_404(obj, id=list_value)
+            return StoreProductModel.objects.filter(product_store=obj)
+        else:
+            raise exceptions.ValidationError("You ..ck", "Not allowed.")  # we have set a viewable validation error here
 
     def perform_create(self, serializer):
         obj = self.get_object().store
-        obj = get_object_or_404(obj, id=self.request.GET.get('list'))
-        obj = serializer.save(product_store=obj, store_product_owner=self.request.user.owner)
-        ProductStatusModel.objects.filter(product_origin=obj).update(product_owner=self.request.user.owner)
+        list_value = self.request.query_params.get('list', None)
+        if list_value is not None and isinstance(list_value, str) and list_value.isdigit():
+            obj = get_object_or_404(obj, id=list_value)
+            obj = serializer.save(product_store=obj, object_owner=self.get_object(), product_id=get_random_int_id())
+            ProductStatusModel.objects.filter(product_origin=obj).update(object_owner=self.get_object())
+        else:
+            raise exceptions.ValidationError("You ..ck", "Not allowed.")  # we have set a viewable validation error here
 
 
 class StoreProductUpdateAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -76,7 +85,7 @@ class StoreProductUpdateAPIView(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
 
     def get_queryset(self):
-        return StoreProductModel.objects.filter(store_product_owner=self.request.user.owner)
+        return StoreProductModel.objects.filter(object_owner=self.request.user.owner)
 
 
 class StoreProductStatusUpdateAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -85,8 +94,8 @@ class StoreProductStatusUpdateAPIView(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
 
     def get_queryset(self):
-        return ProductStatusModel.objects.filter(product_owner=self.request.user.owner)
+        return ProductStatusModel.objects.filter(object_owner=self.request.user.owner)
 
     def perform_update(self, serializer):
-        serializer.save(product_owner=self.request.user.owner)
+        serializer.save(object_owner=self.request.user.owner)
 

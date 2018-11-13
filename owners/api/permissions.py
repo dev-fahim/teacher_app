@@ -1,4 +1,4 @@
-from rest_framework import permissions
+from rest_framework import permissions, filters
 
 
 class IsOwner(permissions.BasePermission):
@@ -11,4 +11,10 @@ class IsOwner(permissions.BasePermission):
         if request.user.is_active:
             return True
         return False
+
+
+class IsOwnerFilter(filters.BaseFilterBackend):
+
+    def filter_queryset(self, request, queryset, view):
+        return queryset.filter(object_owner=request.user.owner)
 

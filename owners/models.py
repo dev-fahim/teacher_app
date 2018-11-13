@@ -1,9 +1,9 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.db.models.signals import post_save
+from .api.utils import get_random_int_id
 
 # Create your models here.
-
 
 User = get_user_model()
 
@@ -58,7 +58,7 @@ class OwnerStoreModel(models.Model):
     """
     Owner of the store
     """
-    owner_store = models.ForeignKey(to=OwnerModel, on_delete=models.CASCADE, related_name='store')
+    object_owner = models.ForeignKey(to=OwnerModel, on_delete=models.CASCADE, related_name='store')
 
     """
     Owner's store information
@@ -92,7 +92,7 @@ class OwnerStoreModel(models.Model):
 
     @property
     def get_owner_name(self):
-        return str(self.owner_store.owner_name)
+        return str(self.object_owner.owner_name)
 
     class Meta:
         verbose_name = 'Store'
@@ -104,7 +104,7 @@ class StoreProductModel(models.Model):
     Product information
     """
     product_store = models.ForeignKey(to=OwnerStoreModel, on_delete=models.CASCADE, related_name='products')
-    store_product_owner = models.ForeignKey(OwnerModel, on_delete=models.CASCADE, related_name='owner_product', null=True)
+    object_owner = models.ForeignKey(OwnerModel, on_delete=models.CASCADE, related_name='owner_product', null=True)
     product_name = models.CharField(max_length=255)
     product_id = models.CharField(max_length=255, unique=True)
 
@@ -121,6 +121,10 @@ class StoreProductModel(models.Model):
     def get_store_name(self):
         return str(self.product_store.owner_store_name)
 
+    @property
+    def get_owner_name(self):
+        return str(self.object_owner.owner_name)
+
 
 class ProductStatusModel(models.Model):
 
@@ -128,7 +132,7 @@ class ProductStatusModel(models.Model):
     Product
     """
     product_origin = models.OneToOneField(StoreProductModel, on_delete=models.CASCADE, related_name='product')
-    product_owner = models.ForeignKey(OwnerModel, on_delete=models.CASCADE, related_name='owner_product_status', null=True)
+    object_owner = models.ForeignKey(OwnerModel, on_delete=models.CASCADE, related_name='owner_product_status', null=True)
 
     """
     Product status
@@ -184,6 +188,7 @@ def user_register_post_save_owner(sender, instance, created, *args, **kwargs):
 
 def store_product_on_add_post_save_product(sender, instance, created, *args, **kwargs):
     if created:
+        product_id = get_random_int_id()
         ProductStatusModel.objects.create(product_origin=instance)
 
 
