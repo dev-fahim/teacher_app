@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.db.models.signals import post_save
-from .api.utils import get_random_int_id
 
 # Create your models here.
 
@@ -132,6 +131,7 @@ class ProductStatusModel(models.Model):
     Product
     """
     product_origin = models.OneToOneField(StoreProductModel, on_delete=models.CASCADE, related_name='product')
+    product_id = models.IntegerField(default=0)
     object_owner = models.ForeignKey(OwnerModel, on_delete=models.CASCADE, related_name='owner_product_status', null=True)
 
     """
@@ -170,10 +170,6 @@ class ProductStatusModel(models.Model):
     def get_main_price(self):
         return str(self.product_origin.product_main_price)
 
-    @property
-    def get_pid(self):
-        return str(self.product_origin.product_id)
-
     def __str__(self):
         return self.product_origin.product_name
 
@@ -188,7 +184,6 @@ def user_register_post_save_owner(sender, instance, created, *args, **kwargs):
 
 def store_product_on_add_post_save_product(sender, instance, created, *args, **kwargs):
     if created:
-        product_id = get_random_int_id()
         ProductStatusModel.objects.create(product_origin=instance)
 
 

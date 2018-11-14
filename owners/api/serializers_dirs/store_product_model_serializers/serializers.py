@@ -6,7 +6,7 @@ class StoreProductModelSerializer(serializers.ModelSerializer):
     store_name = serializers.SerializerMethodField()
     urls = serializers.HyperlinkedIdentityField(
         view_name='api_owner:product_detail_api_view',
-        lookup_field='id',
+        lookup_field='product_id',
         read_only=True
     )
     object_owner = serializers.SerializerMethodField()
@@ -29,7 +29,7 @@ class OwnerStoreProductModelSerializer(serializers.ModelSerializer):
     store_name = serializers.SerializerMethodField()
     urls = serializers.HyperlinkedIdentityField(
         view_name='api_owner:product_status_detail_api_view',
-        lookup_field='id',
+        lookup_field='product_id',
         read_only=True
     )
     object_owner = serializers.SerializerMethodField()

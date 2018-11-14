@@ -5,7 +5,7 @@ from ....models import ProductStatusModel
 class ProductStatusModelSerializer(serializers.ModelSerializer):
     urls = serializers.HyperlinkedIdentityField(
         view_name='api_owner:product_detail_api_view',
-        lookup_field='id',
+        lookup_field='product_id',
         read_only=True
     )
 

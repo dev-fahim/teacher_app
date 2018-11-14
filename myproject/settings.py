@@ -195,6 +195,7 @@ STATICFILES_DIRS = [
 
 CORS_ORIGIN_WHITELIST = (
     'https://angular-4bflgb.stackblitz.io',
+    'http://localhost:4200'
 )
 
 
