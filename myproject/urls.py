@@ -18,12 +18,18 @@ from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework_swagger.views import get_swagger_view
+from .views import index, index_login, index_logout
 
 schema_view = get_swagger_view(title='App API')
 
 
 urlpatterns = [
-    re_path(r'^$', schema_view),
+    re_path(r'^$', index, name="home"),
+    re_path(r'^login/$', index_login, name="login"),
+    re_path(r'^shops/$', index),
+    re_path(r'^dashboard/$', index),
+    re_path(r'^logout/$', index_logout),
+    re_path(r'^swagger/$', schema_view),
     path('admin/', admin.site.urls),
     path('accounts/', include('rest_framework.urls', namespace='rest_framework')),
     path('app/', include('owners.api.urls', namespace='api_owner')),

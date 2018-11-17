@@ -62,6 +62,7 @@ SITE_ID = 1
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -193,9 +194,10 @@ STATICFILES_DIRS = [
     STATICS_DIRS,
 ]
 
-CORS_ORIGIN_WHITELIST = (
-    'https://angular-4bflgb.stackblitz.io',
-    'http://localhost:4200'
-)
+CORS_ORIGIN_WHITELIST = [
+    'localhost:4200'
+]
 
+LOGIN_REDIRECT_URL = 'dashboard/'
+LOGIN_URL = 'login'
 

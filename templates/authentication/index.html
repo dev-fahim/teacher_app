@@ -1,10 +1,23 @@
-<!DOCTYPE html>
+<!doctype html>
+{% load static %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+  <meta charset="utf-8">
+  <title>Myproject</title>
+  <base href="/login">
 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="{% static 'authentication/favicon.ico' %}">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'authentication/styles.css' %}"></head>
+<body>
+  {% csrf_token %}
+  <app-root></app-root>
+  <script type="text/javascript" src="{% static 'authentication/runtime.js' %}"></script>
+  <script type="text/javascript" src="{% static 'authentication/polyfills.js' %}"></script>
+  <script type="text/javascript" src="{% static 'authentication/scripts.js' %}"></script>
+  <script type="text/javascript" src="{% static 'authentication/main.js' %}"></script>
 </body>
 </html>
