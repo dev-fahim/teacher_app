@@ -391,9 +391,6 @@ MIT
 @angular/router
 MIT
 
-@angular/http
-MIT
-
 @angular/cdk
 MIT
 The MIT License
@@ -419,10 +416,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
+@angular/material/card
+
+@angular/material/divider
+
 @angular/animations
 MIT
 
 @angular/material/button
+
+@angular/http
+MIT
 
 @angular/material/icon
 

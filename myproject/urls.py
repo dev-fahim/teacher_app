@@ -26,7 +26,8 @@ schema_view = get_swagger_view(title='App API')
 urlpatterns = [
     re_path(r'^$', index, name="home"),
     re_path(r'^login/$', index_login, name="login"),
-    re_path(r'^shops/$', index),
+    re_path(r'^stores/$', index),
+    re_path(r'^stores/<int:id>/$', index),
     re_path(r'^dashboard/$', index),
     re_path(r'^logout/$', index_logout),
     re_path(r'^swagger/$', schema_view),

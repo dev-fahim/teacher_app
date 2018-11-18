@@ -17,5 +17,6 @@ urlpatterns = [
              StoreProductStatusUpdateAPIView.as_view(),
              name="product_status_detail_api_view"),
         path('stores/', ReadOnlyTestAPIView.as_view()),
+        path('stores/<int:id>/', ReadOnlyDetailTestAPIView.as_view()),
     ]))
 ]
