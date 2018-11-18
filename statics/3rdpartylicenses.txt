@@ -430,12 +430,16 @@ MIT
 
 @angular/material/icon
 
-@angular/material/sidenav
+@angular/material/expansion
 
-@angular/material/toolbar
+@angular/material/form-field
 
 @angular/forms
 MIT
+
+@angular/material/sidenav
+
+@angular/material/toolbar
 
 @angular/material/core
 
