@@ -117,3 +117,8 @@ class ReadOnlyDetailTestAPIView(generics.RetrieveAPIView):
     queryset = OwnerStoreModel.objects.all()
     lookup_field = 'id'
 
+
+class ReadOnlyDetailProductTestAPIView(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, ]
+    serializer_class = OwnerStoreProductModelSerializer
+    queryset = StoreProductModel.objects.all()

@@ -430,18 +430,30 @@ MIT
 
 @angular/material/icon
 
-@angular/material/expansion
+@angular/material/sort
+
+@angular/material/table
+
+@angular/material/tooltip
+
+@angular/material/core
 
 @angular/material/form-field
 
 @angular/forms
 MIT
 
+@angular/material/select
+
+@angular/material/paginator
+
+@angular/material/expansion
+
+@angular/material/menu
+
 @angular/material/sidenav
 
 @angular/material/toolbar
-
-@angular/material/core
 
 @angular/material/list
 
