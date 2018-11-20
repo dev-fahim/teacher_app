@@ -385,12 +385,6 @@ MIT
 @angular/common
 MIT
 
-@angular/platform-browser
-MIT
-
-@angular/router
-MIT
-
 @angular/cdk
 MIT
 The MIT License
@@ -416,6 +410,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
+@angular/platform-browser
+MIT
+
+@angular/http
+MIT
+
+@angular/router
+MIT
+
 @angular/material/card
 
 @angular/material/divider
@@ -424,9 +427,6 @@ THE SOFTWARE.
 MIT
 
 @angular/material/button
-
-@angular/http
-MIT
 
 @angular/material/icon
 
@@ -450,6 +450,8 @@ MIT
 @angular/material/expansion
 
 @angular/material/menu
+
+@angular/material/progress-bar
 
 @angular/material/sidenav
 
