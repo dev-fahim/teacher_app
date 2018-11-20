@@ -416,6 +416,9 @@ MIT
 @angular/http
 MIT
 
+@ngx-loading-bar/core
+MIT
+
 @angular/router
 MIT
 
@@ -458,6 +461,12 @@ MIT
 @angular/material/toolbar
 
 @angular/material/list
+
+@ngx-loading-bar/http
+MIT
+
+@ngx-loading-bar/router
+MIT
 
 zone.js
 MIT
