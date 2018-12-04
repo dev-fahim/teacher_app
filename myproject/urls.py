@@ -18,25 +18,20 @@ from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework_swagger.views import get_swagger_view
-from .views import index, index_login, index_logout
+from rest_framework_jwt.views import verify_jwt_token, refresh_jwt_token
 
 schema_view = get_swagger_view(title='App API')
 
 
 urlpatterns = [
-    re_path(r'^$', index, name="home"),
-    re_path(r'^login/$', index_login, name="login"),
-    re_path(r'^stores/$', index),
-    path('stores/<int:id>/', index),
-    path('stores/<int:id>/products/', index),
-    re_path(r'^dashboard/$', index),
-    re_path(r'^logout/$', index_logout),
     re_path(r'^swagger/$', schema_view),
     path('admin/', admin.site.urls),
     path('accounts/', include('rest_framework.urls', namespace='rest_framework')),
     path('app/', include('owners.api.urls', namespace='api_owner')),
     path('api/accounts/', include('rest_auth.urls')),
     path('api/accounts/register/', include('rest_auth.registration.urls')),
+    re_path(r'^api/verify/', verify_jwt_token),
+    re_path(r'^api/refresh/', refresh_jwt_token),
 ] + static(
     settings.STATIC_URL,
     document_root=settings.STATICS_DIRS) \

@@ -22,12 +22,10 @@ class AllInformationListView(generics.ListAPIView):
 
 class OwnerAPIView(generics.RetrieveUpdateAPIView):
     permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = OwnerModelSerializer
 
     def get_object(self):
         return self.request.user.owner
-
-    def get_serializer(self, *args, **kwargs):
-        return OwnerModelSerializer(instance=self.get_object(), context={'request': self.request})
 
 
 class OwnerStoreAPIView(generics.ListCreateAPIView):
@@ -41,7 +39,7 @@ class OwnerStoreAPIView(generics.ListCreateAPIView):
         return self.request.user.owner.store
 
     def perform_create(self, serializer):
-        return serializer.save(owner_store=self.request.user.owner)
+        return serializer.save(object_owner=self.request.user.owner)
 
 
 class OwnerStoreDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
