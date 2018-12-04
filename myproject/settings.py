@@ -30,9 +30,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'medias')
 SECRET_KEY = 'j6=3fxz==)#r5$!xh=ce0(hza^ww1_af)o9i@ndrzzl+^w+(yn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['fahim6668.pythonanywhere.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['fahim6668.pythonanywhere.com']
 
 
 # Application definition
@@ -195,7 +195,7 @@ STATICFILES_DIRS = [
 ]
 
 CORS_ORIGIN_WHITELIST = [
-    'https://devfahim.pythonanywhere.com'
+    'devfahim.pythonanywhere.com'
 ]
 
 LOGIN_REDIRECT_URL = 'dashboard/'
