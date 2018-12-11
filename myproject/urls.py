@@ -28,6 +28,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('rest_framework.urls', namespace='rest_framework')),
     path('app/', include('owners.api.urls', namespace='api_owner')),
+    path('app/', include('stores.api.urls', namespace='api_store')),
+    path('app/', include('products.api.urls', namespace='api_product')),
     path('api/accounts/', include('rest_auth.urls')),
     path('api/accounts/register/', include('rest_auth.registration.urls')),
     re_path(r'^api/verify/', verify_jwt_token),

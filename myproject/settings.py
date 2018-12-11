@@ -30,9 +30,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'medias')
 SECRET_KEY = 'j6=3fxz==)#r5$!xh=ce0(hza^ww1_af)o9i@ndrzzl+^w+(yn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['fahim6668.pythonanywhere.com']
+ALLOWED_HOSTS = []
+
+if not DEBUG:
+    ALLOWED_HOSTS = ['fahim6668.pythonanywhere.com']
 
 
 # Application definition
@@ -55,6 +58,8 @@ INSTALLED_APPS = [
     'test_api',
     'rest_framework_swagger',
     'owners',
+    'stores',
+    'products',
 ]
 
 SITE_ID = 1
@@ -176,7 +181,7 @@ JWT_AUTH = {
     'JWT_VERIFY': True,
     'JWT_VERIFY_EXPIRATION': True,
     'JWT_LEEWAY': 0,
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=1),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=10),
     'JWT_AUDIENCE': None,
     'JWT_ISSUER': None,
 
@@ -197,6 +202,12 @@ STATICFILES_DIRS = [
 CORS_ORIGIN_WHITELIST = [
     'devfahim.pythonanywhere.com'
 ]
+
+if DEBUG:
+    CORS_ORIGIN_WHITELIST += [
+        'localhost:4200'
+    ]
+
 
 LOGIN_REDIRECT_URL = 'dashboard/'
 LOGIN_URL = 'login'

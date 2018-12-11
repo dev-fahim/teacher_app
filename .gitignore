@@ -105,3 +105,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+.idea
+.idea/
+*.idea
+*.idea/
+.settings.py.swp
+*.settings.py.swp

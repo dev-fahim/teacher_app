@@ -1,12 +1,12 @@
-from ..store_product_model_serializers.serializers import OwnerStoreProductModelSerializer
+from products.api.serializers import OwnerStoreProductModelSerializer
 from rest_framework import serializers
-from ....models import OwnerStoreModel
+from stores.models import OwnerStoreModel
 
 
 class OwnerStoreModelSerializer(serializers.ModelSerializer):
     owner = serializers.SerializerMethodField(read_only=True)
     urls = serializers.HyperlinkedIdentityField(
-        view_name='api_owner:store_detail_api_view',
+        view_name='api_store:store_detail_api_view',
         lookup_field='id',
         read_only=True
     )

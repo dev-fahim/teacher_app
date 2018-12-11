@@ -1,11 +1,27 @@
 from rest_framework import serializers
-from ....models import StoreProductModel
+from products.models import (
+    ProductStatusModel,
+    StoreProductModel
+)
+
+
+class ProductStatusModelSerializer(serializers.ModelSerializer):
+    urls = serializers.HyperlinkedIdentityField(
+        view_name='api_store:product_detail_api_view',
+        lookup_field='product_id',
+        read_only=True
+    )
+
+    class Meta:
+        model = ProductStatusModel
+        fields = '__all__'
+        read_only_fields = ('object_owner', 'product_origin')
 
 
 class StoreProductModelSerializer(serializers.ModelSerializer):
     store_name = serializers.SerializerMethodField()
     urls = serializers.HyperlinkedIdentityField(
-        view_name='api_owner:product_detail_api_view',
+        view_name='api_store:product_detail_api_view',
         lookup_field='product_id',
         read_only=True
     )
@@ -28,7 +44,7 @@ class StoreProductModelSerializer(serializers.ModelSerializer):
 class OwnerStoreProductModelSerializer(serializers.ModelSerializer):
     store_name = serializers.SerializerMethodField()
     urls = serializers.HyperlinkedIdentityField(
-        view_name='api_owner:product_status_detail_api_view',
+        view_name='api_store:product_status_detail_api_view',
         lookup_field='product_id',
         read_only=True
     )
