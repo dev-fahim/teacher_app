@@ -15,8 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
-from django.conf import settings
-from django.conf.urls.static import static
 from rest_framework_swagger.views import get_swagger_view
 from rest_framework_jwt.views import verify_jwt_token, refresh_jwt_token
 
@@ -34,9 +32,4 @@ urlpatterns = [
     path('api/accounts/register/', include('rest_auth.registration.urls')),
     re_path(r'^api/verify/', verify_jwt_token),
     re_path(r'^api/refresh/', refresh_jwt_token),
-] + static(
-    settings.STATIC_URL,
-    document_root=settings.STATICS_DIRS) \
-              + static(
-    settings.MEDIA_URL,
-    document_root=settings.MEDIA_ROOT)
+]

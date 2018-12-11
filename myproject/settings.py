@@ -18,11 +18,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # All directories
 
-TEMPLATES_DIRS = os.path.join(BASE_DIR, 'templates')
-STATICS_DIRS = os.path.join(BASE_DIR, 'statics')
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'medias')
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -55,7 +50,6 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'rest_auth.registration',
-    'test_api',
     'rest_framework_swagger',
     'owners',
     'stores',
@@ -80,7 +74,7 @@ ROOT_URLCONF = 'myproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATES_DIRS],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -195,10 +189,6 @@ JWT_AUTH = {
 
 REST_USE_JWT = True
 
-STATICFILES_DIRS = [
-    STATICS_DIRS,
-]
-
 CORS_ORIGIN_WHITELIST = [
     'devfahim.pythonanywhere.com'
 ]
@@ -207,8 +197,3 @@ if DEBUG:
     CORS_ORIGIN_WHITELIST += [
         'localhost:4200'
     ]
-
-
-LOGIN_REDIRECT_URL = 'dashboard/'
-LOGIN_URL = 'login'
-
