@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'rest_auth.registration',
     'rest_framework_swagger',
+    'django_filters',
     'owners',
     'stores',
     'products',
@@ -109,6 +110,9 @@ REST_FRAMEWORK = {
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
+    ),
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
     ),
 }
 
