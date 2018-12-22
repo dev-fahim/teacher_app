@@ -21,7 +21,7 @@ class OwnerStoreModel(models.Model):
     """
     Owner's store information
     """
-    owner_store_id = models.UUIDField()
+    owner_store_id = models.UUIDField(auto_created=True, default=uuid.uuid4().hex)
     owner_store_name = models.CharField(max_length=100, blank=False)
     owner_store_lcs_type = models.CharField(max_length=45, blank=False, default='N/A')
     owner_store_address = models.TextField(blank=False)
@@ -55,10 +55,3 @@ class OwnerStoreModel(models.Model):
 
     class Meta:
         verbose_name = 'Store'
-
-
-def owner_store_model_store_id_pre_save(sender, instance, *args, **kwargs):
-    instance.owner_store_id = uuid.uuid4().hex
-
-
-pre_save.connect(owner_store_model_store_id_pre_save, sender=OwnerStoreModel)

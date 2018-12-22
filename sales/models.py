@@ -12,7 +12,7 @@ class SalesModel(models.Model):
     object_owner = models.ForeignKey(OwnerModel, on_delete=models.DO_NOTHING, related_name='sales_owner')
     store = models.ForeignKey(OwnerStoreModel, on_delete=models.DO_NOTHING, related_name='sales_store')
 
-    sale_id = models.UUIDField()
+    sale_id = models.UUIDField(auto_created=True, default=uuid.uuid4().hex)
     total_discounted = models.IntegerField()
 
     @property
@@ -22,13 +22,6 @@ class SalesModel(models.Model):
     @property
     def get_store_name(self):
         return str(self.store.owner_store_name)
-
-
-def sales_model_sale_id_pre_save(sender, instance, *args, **kwargs):
-    instance.sale_id = uuid.uuid4().hex
-
-
-pre_save.connect(sales_model_sale_id_pre_save, SalesModel)
 
 
 class DailySalesModel(models.Model):

@@ -25,11 +25,12 @@ urlpatterns = [
     re_path(r'^$', schema_view),
     path('admin/', admin.site.urls),
     path('accounts/', include('rest_framework.urls', namespace='rest_framework')),
-    path('app/', include([
+    path('app/apis/v2/', include([
         path('', include('sales.api.urls', namespace='api_sales')),
         path('', include('owners.api.urls', namespace='api_owner')),
         path('', include('stores.api.urls', namespace='api_store')),
         path('', include('products.api.urls', namespace='api_product')),
+        path('', include('cashiers.api.urls', namespace='api_cashier')),
     ])),
     path('api/accounts/', include('rest_auth.urls')),
     path('api/accounts/register/', include('rest_auth.registration.urls')),

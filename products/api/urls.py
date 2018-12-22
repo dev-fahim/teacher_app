@@ -8,7 +8,7 @@ from products.api.views import (
 app_name = 'api_product'
 
 urlpatterns = [
-    path('apis/v2/owner/store/', include([
+    path('owner/store/', include([
         path('products/<int:list>/', StoreProductCreateAPIView.as_view()),
         path('product/<uuid:product_id>/',
              StoreProductUpdateAPIView.as_view(),

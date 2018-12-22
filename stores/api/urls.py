@@ -7,7 +7,7 @@ from stores.api.views import (
 app_name = 'api_store'
 
 urlpatterns = [
-    path('apis/v2/owner/', include([
+    path('owner/', include([
         path('store/', OwnerStoreAPIView.as_view()),
         path('store/<int:id>/', OwnerStoreDetailAPIView.as_view(), name='store_detail_api_view')
     ]))
