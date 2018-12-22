@@ -1,7 +1,8 @@
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 from owners.models import OwnerModel
 from stores.models import OwnerStoreModel
+import uuid
 
 
 # Create your models here.
@@ -15,7 +16,7 @@ class StoreProductModel(models.Model):
     product_store = models.ForeignKey(to=OwnerStoreModel, on_delete=models.CASCADE, related_name='products')
     object_owner = models.ForeignKey(OwnerModel, on_delete=models.CASCADE, related_name='owner_product', null=True)
     product_name = models.CharField(max_length=255)
-    product_id = models.CharField(max_length=255, unique=True)
+    product_id = models.UUIDField()
 
     """
     Product prices
@@ -41,7 +42,7 @@ class ProductStatusModel(models.Model):
     Product
     """
     product_origin = models.OneToOneField(StoreProductModel, on_delete=models.CASCADE, related_name='product')
-    product_id = models.IntegerField(default=0)
+    product_id = models.UUIDField()
     object_owner = models.ForeignKey(OwnerModel, on_delete=models.CASCADE, related_name='owner_product_status', null=True)
 
     """
@@ -84,9 +85,18 @@ class ProductStatusModel(models.Model):
         return self.product_origin.product_name
 
 
+def store_product_model_product_id_pre_save(sender, instance, *args, **kwargs):
+    instance.product_id = uuid.uuid4().hex
+
+
 def store_product_on_add_post_save_product(sender, instance, created, *args, **kwargs):
     if created:
-        ProductStatusModel.objects.create(product_origin=instance)
+        ProductStatusModel.objects.create(
+            product_origin=instance,
+            product_id=instance.product_id,
+            object_owner=instance.object_owner
+        )
 
 
 post_save.connect(store_product_on_add_post_save_product, sender=StoreProductModel)
+pre_save.connect(store_product_model_product_id_pre_save, StoreProductModel)

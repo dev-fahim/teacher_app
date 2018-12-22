@@ -2,6 +2,8 @@ from django.db import models
 from owners.models import OwnerModel
 from stores.models import OwnerStoreModel
 from products.models import StoreProductModel
+from django.db.models.signals import pre_save
+import uuid
 # Create your models here.
 
 
@@ -10,7 +12,7 @@ class SalesModel(models.Model):
     object_owner = models.ForeignKey(OwnerModel, on_delete=models.DO_NOTHING, related_name='sales_owner')
     store = models.ForeignKey(OwnerStoreModel, on_delete=models.DO_NOTHING, related_name='sales_store')
 
-    sale_id = models.IntegerField()
+    sale_id = models.UUIDField()
     total_discounted = models.IntegerField()
 
     @property
@@ -20,6 +22,13 @@ class SalesModel(models.Model):
     @property
     def get_store_name(self):
         return str(self.store.owner_store_name)
+
+
+def sales_model_sale_id_pre_save(sender, instance, *args, **kwargs):
+    instance.sale_id = uuid.uuid4().hex
+
+
+pre_save.connect(sales_model_sale_id_pre_save, SalesModel)
 
 
 class DailySalesModel(models.Model):

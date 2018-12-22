@@ -1,9 +1,6 @@
 from rest_framework import generics
 from sales.api.serializers import SalesSerializer
 from sales.models import SalesModel
-from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import filters
 
@@ -11,7 +8,7 @@ from rest_framework import filters
 class SalesListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = SalesSerializer
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('sales_object__product__product_name', 'sales_object__product__product_id')
+    search_fields = ('sales_object__product__product_name', 'sales_object__product__product_id', 'sale_id')
 
     def get_object(self):
         return self.request.user.owner
@@ -31,7 +28,7 @@ class SalesRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
 class SalesStoreWiseListAPIView(generics.ListAPIView):
     serializer_class = SalesSerializer
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('sales_object__product__product_name', 'sales_object__product__product_id')
+    search_fields = ('sales_object__product__product_name', 'sales_object__product__product_id', 'sale_id')
 
     def get_queryset(self):
         sid = self.kwargs['sid']

@@ -22,7 +22,7 @@ schema_view = get_swagger_view(title='App API')
 
 
 urlpatterns = [
-    re_path(r'^swagger/$', schema_view),
+    re_path(r'^$', schema_view),
     path('admin/', admin.site.urls),
     path('accounts/', include('rest_framework.urls', namespace='rest_framework')),
     path('app/', include([

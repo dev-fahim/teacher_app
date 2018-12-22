@@ -10,10 +10,10 @@ app_name = 'api_product'
 urlpatterns = [
     path('apis/v2/owner/store/', include([
         path('products/<int:list>/', StoreProductCreateAPIView.as_view()),
-        path('product/<int:product_id>/',
+        path('product/<uuid:product_id>/',
              StoreProductUpdateAPIView.as_view(),
              name="product_detail_api_view"),
-        path('product/status/<int:product_id>/',
+        path('product/status/<uuid:product_id>/',
              StoreProductStatusUpdateAPIView.as_view(),
              name="product_status_detail_api_view")
     ]))
