@@ -31,6 +31,7 @@ urlpatterns = [
         path('', include('stores.api.urls', namespace='api_store')),
         path('', include('products.api.urls', namespace='api_product')),
         path('', include('cashiers.api.urls', namespace='api_cashier')),
+        path('', include('accounts.api.urls', namespace='api_accounts')),
     ])),
     path('api/accounts/', include('rest_auth.urls')),
     path('api/accounts/register/', include('rest_auth.registration.urls')),

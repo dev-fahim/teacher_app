@@ -16,7 +16,7 @@ class StoreProductModel(models.Model):
     product_store = models.ForeignKey(to=OwnerStoreModel, on_delete=models.CASCADE, related_name='products')
     object_owner = models.ForeignKey(OwnerModel, on_delete=models.CASCADE, related_name='owner_product', null=True)
     product_name = models.CharField(max_length=255)
-    product_id = models.UUIDField(auto_created=True, default=uuid.uuid4().hex)
+    product_id = models.UUIDField(auto_created=True)
 
     """
     Product prices
@@ -94,4 +94,9 @@ def store_product_on_add_post_save_product(sender, instance, created, *args, **k
         )
 
 
+def store_product_on_add_product_id_auto_create(sender, instance, *args, **kwargs):
+    instance.product_id = uuid.uuid4().hex
+
+
 post_save.connect(store_product_on_add_post_save_product, sender=StoreProductModel)
+pre_save.connect(store_product_on_add_product_id_auto_create, StoreProductModel)

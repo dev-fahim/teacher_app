@@ -1,9 +1,9 @@
 from rest_framework import views, generics
 from rest_framework.response import Response
-from cashiers.api.serializers import CashierUserModelSerializer
+from cashiers.api.serializers import CashierUserModelSerializer, CashierModelSerializer
 
 
-class CashierListCreateAPIView(generics.GenericAPIView):
+class CashierAPIView(generics.GenericAPIView):
     @staticmethod
     def get(request):
         serializer = CashierUserModelSerializer(instance=request.user)
@@ -15,3 +15,10 @@ class CashierCreateAPIView(generics.CreateAPIView):
 
     def get_queryset(self):
         return self.request.user
+
+
+class CashierListApiView(generics.ListAPIView):
+    serializer_class = CashierModelSerializer
+
+    def get_queryset(self):
+        return self.request.user.owner.cashier_owner

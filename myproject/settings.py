@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
     'rest_auth.registration',
     'rest_framework_swagger',
     'django_filters',
@@ -61,6 +62,7 @@ INSTALLED_APPS = [
     'products',
     'sales',
     'cashiers',
+    'accounts',
 ]
 
 SITE_ID = 1

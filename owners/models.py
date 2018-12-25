@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.db.models.signals import post_save
+# from django.db.models.signals import post_save
 
 # Create your models here.
 
@@ -48,12 +48,13 @@ class OwnerModel(models.Model):
 
 """All signals"""
 
-
+"""
 def user_register_post_save_owner(sender, instance, created, *args, **kwargs):
     if created:
         OwnerModel.objects.create(owner_name=instance)
 
 
 post_save.connect(user_register_post_save_owner, sender=User)
+"""
 
 """-------------------"""

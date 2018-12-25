@@ -25,9 +25,3 @@ class OwnerStoreModelSerializer(serializers.ModelSerializer):
     @staticmethod
     def get_owner(obj):
         return obj.get_owner_name
-
-    def create(self, validated_data):
-        obj = OwnerStoreModel.objects.create(**validated_data)
-        obj.owner_store_id = uuid.uuid4().hex
-        obj.save()
-        return obj
