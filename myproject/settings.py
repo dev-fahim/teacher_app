@@ -58,11 +58,11 @@ INSTALLED_APPS = [
     'rest_framework_swagger',
     'django_filters',
     'owners',
-    'stores',
-    'products',
-    'sales',
-    'cashiers',
-    'accounts',
+    'owners.stores',
+    'owners.products',
+    'owners.sales',
+    'owners.cashiers',
+    'owners.accounts',
 ]
 
 SITE_ID = 1

@@ -1,4 +1,4 @@
-from stores.api.serializers import OwnerStoreModelSerializer
+from owners.stores.api.serializers import OwnerStoreModelSerializer
 from rest_framework import serializers
 from owners.models import OwnerModel
 from django.contrib.auth.models import User
