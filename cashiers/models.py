@@ -11,4 +11,8 @@ class CashierModel(models.Model):
     cashier_id = models.UUIDField(auto_created=True, default=uuid.uuid4().hex)
 
     cashier_store = models.OneToOneField(OwnerStoreModel, on_delete=models.CASCADE, related_name='cashier_store')
-    object_owner = models.OneToOneField(User, on_delete=models.CASCADE, related_name='cashier_model')
+    cashier_user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='cashier_user')
+    object_owner = models.ForeignKey(OwnerModel, on_delete=models.CASCADE, related_name='cashier_owner')
+
+    def __str__(self):
+        return self.cashier_name

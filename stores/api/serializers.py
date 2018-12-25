@@ -1,6 +1,7 @@
 from products.api.serializers import OwnerStoreProductModelSerializer
 from rest_framework import serializers
 from stores.models import OwnerStoreModel
+import uuid
 
 
 class OwnerStoreModelSerializer(serializers.ModelSerializer):
@@ -11,10 +12,11 @@ class OwnerStoreModelSerializer(serializers.ModelSerializer):
         read_only=True
     )
     products = OwnerStoreProductModelSerializer(many=True, read_only=True)
+    owner_store_id = serializers.UUIDField(read_only=True)
 
     class Meta:
         model = OwnerStoreModel
-        fields = ('id', 'owner', 'urls', 'products',
+        fields = ('id', 'owner', 'urls', 'products', 'owner_store_id',
                   'owner_store_name', 'owner_store_lcs_type', 'owner_store_address',
                   'owner_store_type'
                   )
@@ -23,3 +25,9 @@ class OwnerStoreModelSerializer(serializers.ModelSerializer):
     @staticmethod
     def get_owner(obj):
         return obj.get_owner_name
+
+    def create(self, validated_data):
+        obj = OwnerStoreModel.objects.create(**validated_data)
+        obj.owner_store_id = uuid.uuid4().hex
+        obj.save()
+        return obj
