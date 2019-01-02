@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'owners.sales',
     'owners.cashiers',
     'owners.accounts',
+    'userLevel'
 ]
 
 SITE_ID = 1
