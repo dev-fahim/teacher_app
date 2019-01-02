@@ -55,7 +55,6 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'rest_auth.registration',
-    'rest_framework_swagger',
     'django_filters',
     'owners',
     'owners.stores',
