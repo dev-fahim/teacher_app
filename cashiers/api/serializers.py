@@ -2,7 +2,7 @@ from rest_framework import serializers, status
 from django.contrib.auth.models import User
 from rest_framework import exceptions
 from django.db.models import Q
-from owners.cashiers.models import CashierModel
+from cashiers.models import CashierModel
 from owners.stores.models import OwnerStoreModel
 
 

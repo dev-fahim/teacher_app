@@ -1,5 +1,5 @@
 from django.contrib import admin
-from owners.sales.models import SalesModel, DailySalesModel
+from sales.models import SalesModel, DailySalesModel
 # Register your models here.
 
 

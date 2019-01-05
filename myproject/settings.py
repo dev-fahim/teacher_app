@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'owners',
     'owners.stores',
     'owners.products',
-    'owners.sales',
+    'sales',
     'owners.cashiers',
     'owners.accounts',
     'userLevel'

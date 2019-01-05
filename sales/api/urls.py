@@ -1,5 +1,5 @@
 from django.urls import path, include
-from owners.sales.api.views import (
+from sales.api.views import (
     SalesListCreateAPIView,
     SalesRetrieveUpdateDestroyAPIView,
     SalesStoreWiseListAPIView

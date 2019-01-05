@@ -1,6 +1,6 @@
 from rest_framework import generics
 from rest_framework.response import Response
-from owners.cashiers.api.serializers import CashierUserModelSerializer, CashierModelSerializer
+from cashiers.api.serializers import CashierUserModelSerializer, CashierModelSerializer
 from myproject import userLevePermission
 
 

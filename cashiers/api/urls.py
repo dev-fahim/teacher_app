@@ -1,5 +1,5 @@
 from django.urls import path, include
-from owners.cashiers.api.views import CashierCreateAPIView, CashierListApiView
+from cashiers.api.views import CashierCreateAPIView, CashierListApiView
 
 app_name = 'api_cashier'
 
