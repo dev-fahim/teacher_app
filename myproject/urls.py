@@ -26,7 +26,7 @@ urlpatterns = [
         path('', include('owners.api.urls', namespace='api_owner')),
         path('', include('owners.stores.api.urls', namespace='api_store')),
         path('', include('owners.products.api.urls', namespace='api_product')),
-        path('', include('owners.cashiers.api.urls', namespace='api_cashier')),
+        path('', include('cashiers.api.urls', namespace='api_cashier')),
         path('', include('owners.accounts.api.urls', namespace='api_accounts')),
     ])),
     path('api/accounts/', include('rest_auth.urls')),

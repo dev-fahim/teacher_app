@@ -46,6 +46,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'owners',
+    'owners.stores',
+    'owners.products',
+    'sales',
+    'cashiers',
+    'owners.accounts',
+    'userLevel',
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
@@ -56,13 +63,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'rest_auth.registration',
     'django_filters',
-    'owners',
-    'owners.stores',
-    'owners.products',
-    'sales',
-    'owners.cashiers',
-    'owners.accounts',
-    'userLevel'
 ]
 
 SITE_ID = 1
