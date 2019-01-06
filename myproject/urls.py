@@ -21,7 +21,7 @@ from rest_framework_jwt.views import verify_jwt_token, refresh_jwt_token
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('rest_framework.urls', namespace='rest_framework')),
-    path('app/apis/v2/', include([
+    path('', include([
         path('', include('sales.api.urls', namespace='api_sales')),
         path('', include('owners.api.urls', namespace='api_owner')),
         path('', include('owners.stores.api.urls', namespace='api_store')),
