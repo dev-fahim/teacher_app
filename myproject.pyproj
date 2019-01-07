@@ -41,6 +41,9 @@
     <Compile Include="cashiers\tests.py" />
     <Compile Include="cashiers\views.py" />
     <Compile Include="cashiers\__init__.py" />
+    <Compile Include="Dockerfile">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="manage.py" />
     <Compile Include="myproject\settings.py" />
     <Compile Include="myproject\urls.py" />
@@ -266,7 +269,7 @@
     <Folder Include="userLevel\__pycache__\" />
   </ItemGroup>
   <ItemGroup>
-    <Interpreter Include="src\venv\">
+    <Interpreter Include="venv\">
       <Id>venv</Id>
       <Version>3.7</Version>
       <Description>venv (Python 3.7 (64-bit))</Description>

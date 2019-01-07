@@ -21,7 +21,7 @@ class OwnerStoreModel(models.Model):
     """
     Owner's store information
     """
-    owner_store_id = models.UUIDField(auto_created=True)
+    owner_store_id = models.UUIDField(auto_created=True, blank=True)
     owner_store_name = models.CharField(max_length=100, blank=False)
     owner_store_lcs_type = models.CharField(max_length=45, blank=False, default='N/A')
     owner_store_address = models.TextField(blank=False)

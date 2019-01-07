@@ -15,4 +15,4 @@ class UserLevelModel(models.Model):
     level = models.IntegerField(choices=LEVEL_CHOICES)
 
     def __str__(self):
-        return self.user
+        return self.user.username
