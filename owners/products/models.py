@@ -42,7 +42,6 @@ class ProductStatusModel(models.Model):
     Product
     """
     product_origin = models.OneToOneField(StoreProductModel, on_delete=models.CASCADE, related_name='product')
-    product_id = models.UUIDField()
     object_owner = models.ForeignKey(OwnerModel, on_delete=models.CASCADE, related_name='owner_product_status', null=True)
 
     """

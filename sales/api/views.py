@@ -35,10 +35,10 @@ class SalesRetrieveUpdateDestroyAPIView(generics.RetrieveAPIView):
     permission_classes = [userLevePermission.IsOwner]
     serializer_class = SalesSerializer
     lookup_field = 'id'
-    
+
     def get_queryset(self):
         return self.request.user.owner.sales_owner
-    
+
 """
 
 
@@ -52,5 +52,3 @@ class SalesStoreWiseListAPIView(generics.ListAPIView):
         sid = self.kwargs['sid']
         store = get_object_or_404(self.request.user.owner.store, id=sid)
         return SalesModel.objects.filter(object_owner=self.request.user.owner, store=store)
-
-

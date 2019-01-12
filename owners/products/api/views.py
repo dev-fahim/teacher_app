@@ -9,14 +9,14 @@ from owners.products.models import (
     StoreProductModel,
     ProductStatusModel
 )
-from myproject import userLevePermission
+from myproject.globals.api.permissions import IsOwnerOnly
 
 
 class StoreProductCreateAPIView(generics.ListCreateAPIView):
     serializer_class = StoreProductModelSerializer
     filter_backends = (filters.SearchFilter, )
     search_fields = ('product_name', 'product_id')
-    permission_classes = [userLevePermission.IsOwner, ]
+    permission_classes = [IsOwnerOnly, ]
 
     def get_object(self):
         return self.request.user.owner
@@ -35,18 +35,18 @@ class StoreProductCreateAPIView(generics.ListCreateAPIView):
 
 
 class StoreProductUpdateAPIView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [userLevePermission.IsOwner, ]
+    permission_classes = [IsOwnerOnly, ]
     serializer_class = OwnerStoreProductModelSerializer
-    lookup_field = 'product_id'
+    lookup_field = 'id'
 
     def get_queryset(self):
         return StoreProductModel.objects.filter(object_owner=self.request.user.owner)
 
 
 class StoreProductStatusUpdateAPIView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [userLevePermission.IsOwner, ]
+    permission_classes = [IsOwnerOnly, ]
     serializer_class = ProductStatusModelSerializer
-    lookup_field = 'product_id'
+    lookup_field = 'id'
 
     def get_queryset(self):
         return ProductStatusModel.objects.filter(object_owner=self.request.user.owner)

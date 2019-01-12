@@ -1,11 +1,11 @@
 from rest_framework import generics
 from owners.stores.api.serializers import (OwnerStoreModelSerializer)
-from myproject import userLevePermission
+from myproject.globals.api.permissions import IsOwnerOnly
 
 
 class OwnerStoreAPIView(generics.ListCreateAPIView):
     serializer_class = OwnerStoreModelSerializer
-    permission_classes = [userLevePermission.IsOwner, ]
+    permission_classes = [IsOwnerOnly, ]
 
     def get_queryset(self):
         return self.get_object()
@@ -19,7 +19,7 @@ class OwnerStoreAPIView(generics.ListCreateAPIView):
 
 class OwnerStoreDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = OwnerStoreModelSerializer
-    permission_classes = [userLevePermission.IsOwner, ]
+    permission_classes = [IsOwnerOnly, ]
     lookup_field = 'id'
 
     def get_queryset(self):

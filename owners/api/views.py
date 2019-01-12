@@ -4,11 +4,11 @@ from owners.api.serializers import (
     OwnerModelSerializer,
     CoreUserSerializer
 )
-from myproject import userLevePermission
+from myproject.globals.api.permissions import IsOwnerOnly
 
 
 class AllInformationListView(generics.ListAPIView):
-    permission_classes = [userLevePermission.IsOwner, ]
+    permission_classes = [IsOwnerOnly, ]
 
     def get_queryset(self):
         return self.get_object()
@@ -21,7 +21,7 @@ class AllInformationListView(generics.ListAPIView):
 
 
 class OwnerAPIView(generics.RetrieveUpdateAPIView):
-    permission_classes = [userLevePermission.IsOwner, ]
+    permission_classes = [IsOwnerOnly, ]
     serializer_class = OwnerModelSerializer
 
     def get_object(self):

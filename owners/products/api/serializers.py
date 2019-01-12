@@ -8,7 +8,7 @@ from owners.products.models import (
 class ProductStatusModelSerializer(serializers.ModelSerializer):
     urls = serializers.HyperlinkedIdentityField(
         view_name='api_product:product_detail_api_view',
-        lookup_field='product_id',
+        lookup_field='id',
         read_only=True
     )
 
@@ -22,7 +22,7 @@ class StoreProductModelSerializer(serializers.ModelSerializer):
     store_name = serializers.SerializerMethodField()
     urls = serializers.HyperlinkedIdentityField(
         view_name='api_product:product_detail_api_view',
-        lookup_field='product_id',
+        lookup_field='id',
         read_only=True
     )
     object_owner = serializers.SerializerMethodField()
@@ -45,7 +45,7 @@ class OwnerStoreProductModelSerializer(serializers.ModelSerializer):
     store_name = serializers.SerializerMethodField()
     urls = serializers.HyperlinkedIdentityField(
         view_name='api_product:product_status_detail_api_view',
-        lookup_field='product_id',
+        lookup_field='id',
         read_only=True
     )
     object_owner = serializers.SerializerMethodField()
