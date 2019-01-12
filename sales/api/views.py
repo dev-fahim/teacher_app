@@ -30,14 +30,16 @@ class SalesRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     """
 
 
+"""
 class SalesRetrieveUpdateDestroyAPIView(generics.RetrieveAPIView):
     permission_classes = [userLevePermission.IsOwner]
     serializer_class = SalesSerializer
     lookup_field = 'id'
-    """
+    
     def get_queryset(self):
         return self.request.user.owner.sales_owner
-    """
+    
+"""
 
 
 class SalesStoreWiseListAPIView(generics.ListAPIView):

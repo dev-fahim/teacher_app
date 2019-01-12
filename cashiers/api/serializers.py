@@ -2,11 +2,21 @@ from rest_framework import serializers, status
 from django.contrib.auth.models import User
 from rest_framework import exceptions
 from django.db.models import Q
-from cashiers.models import CashierModel
+from cashiers.models import CashierModel, CashierSalesPermissionsModel
 from owners.stores.models import OwnerStoreModel
 
 
+class CashierSalesPermissionsModelSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CashierSalesPermissionsModel
+        fields = '__all__'
+        read_only_fields = ('cashier', )
+
+
 class CashierModelSerializer(serializers.ModelSerializer):
+
+    cashier_sales_permissions = CashierSalesPermissionsModelSerializer(read_only=False, many=False)
 
     class Meta:
         model = CashierModel
@@ -40,18 +50,27 @@ class CashierUserModelSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        request = self.context['request']
-        user = request.user.owner
         cashier_all_data = validated_data.pop('cashier')
+        cashier_sales_permissions_data = validated_data.pop('cashier_sales_permissions')
         obj = User.objects.create_user(
             username=validated_data.get('username'),
             email=validated_data.get('email'),
             password=validated_data.get('password')
         )
-        CashierModel.objects.create(
-            object_owner=user,
+        cashier = CashierModel.objects.create(
+            object_owner=self.request_user_data(),
             cashier_user=obj,
             cashier_id='',
             **cashier_all_data
         )
+        CashierSalesPermissionsModel.objects.create(
+            cashier=cashier,
+            **cashier_sales_permissions_data
+        )
         return obj
+
+    def request_data(self):
+        return self.context['request']
+
+    def request_user_data(self):
+        return self.request_data().user

@@ -33,3 +33,7 @@ class CashierListApiView(generics.ListAPIView):
 
     def get_queryset(self):
         return self.request.user.owner.cashier_owner
+
+
+class CashierRetrieveUpdateDestroyApiView(generics.RetrieveUpdateDestroyAPIView):
+    pass
